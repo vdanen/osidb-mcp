@@ -12,8 +12,9 @@ jobs:
       matrix:
         python-version: ["3.10", "3.12", "3.13"]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      # checkout@v4 / setup-python@v5 run on Node 20 (deprecated on GHA). v5+/v6+ use Node 24.
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install
@@ -23,4 +24,4 @@ jobs:
       - name: Pytest
         run: pytest
       - name: pip-audit
-        run: pip-audit -r <(pip freeze)
+        run: pip-audit
