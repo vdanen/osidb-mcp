@@ -38,6 +38,7 @@ osidb-mcp = "osidb_mcp.__main__:main"
 Homepage = "https://github.com/vdanen/osidb-mcp"
 Repository = "https://github.com/vdanen/osidb-mcp"
 Issues = "https://github.com/vdanen/osidb-mcp/issues"
+PyPI = "https://pypi.org/project/osidb-mcp/"
 
 [tool.hatch.build.targets.sdist]
 include = ["src/osidb_mcp", "README.md", "LICENSE", "CHANGELOG.md"]
