@@ -1,5 +1,3 @@
-# Changelog
-
 ## 0.2.0
 
 - **Access mode:** `OSIDB_MCP_ACCESS_MODE` supports only `readonly` (default). `readwrite` is **rejected at startup** with a clear error until mutation MCP tools exist; removes misleading “warn and continue” behavior.
@@ -7,6 +5,7 @@
 - **Security documentation:** add [SECURITY.md](SECURITY.md) — threat model, OWASP-oriented checklist, dual-MCP recommendation for future read/write servers.
 - **Docs:** README / TOOLS.md updated for new tools and `readonly`-only access mode.
 - **Tests:** config/access-mode regression test for rejected `readwrite`.
+- **Live test harness:** optional `live_tests/` + `make livetest` (`pytest -vv -s`); CVE-2014-0160 fixtures; stderr count inventory + optional `OSIDB_LIVE_MIN_*` floors; credential patterns gitignored; documented in `live_tests/README.md`.
 
 ## 0.1.4
 

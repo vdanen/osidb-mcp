@@ -7,3 +7,10 @@ __pycache__/
 dist/
 *.egg-info/
 .claude
+
+# Live OSIDB integration credentials (see live_tests/README.md)
+.env.live
+.env.live.*
+*.live.env
+live_tests/.env
+live_tests/.env.*

@@ -131,11 +131,13 @@ See **[SECURITY.md](SECURITY.md)** for the threat model, OWASP-oriented checklis
 uv venv .venv && source .venv/bin/activate
 uv pip install -e ".[dev]"
 python -m osidb_mcp
-pytest
+pytest tests
 pip-audit
 ```
 
 With [Makefile](Makefile): `make install`, `make test`, `make audit`, or `make check` (CI-equivalent). `make build` / `make upload` for releases (`upload` requires [twine](https://twine.readthedocs.io/) credentials).
+
+**Live integration tests:** `make livetest` runs [`live_tests/`](live_tests/) with **`pytest -vv -s`** (verbose + uncaptured stderr) when `OSIDB_LIVE_TEST=1` and normal `OSIDB_*` credentials are set. Default assertions use **`CVE-2014-0160`**; optional **`OSIDB_LIVE_MIN_*`** env vars enforce minimum totals for your instance. Setup, count output, and `.gitignore` patterns for secrets are documented in **[live_tests/README.md](live_tests/README.md)**. Default **`make test`** / **`pytest`** only run **`tests/`** (offline).
 
 On **Debian/Ubuntu** (including local containers), install **`libkrb5-dev`** before `pip install` so the **`gssapi`** dependency can find `krb5-config` (Kerberos stack used with `osidb-bindings`).
 

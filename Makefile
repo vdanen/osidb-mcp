@@ -8,14 +8,15 @@ PIP          := $(PYTHON) -m pip
 PYTEST_ARGS  ?=
 TWINE        := $(PYTHON) -m twine
 
-.PHONY: help install sync test test-uv audit check build clean upload version
+.PHONY: help install sync test livetest test-uv audit check build clean upload version
 
 help:
 	@echo "osidb-mcp — common targets"
 	@echo "  make install   # pip install -e \".[dev]\" (same idea as CI)"
 	@echo "  make sync      # uv sync --extra dev (requires uv)"
-	@echo "  make test      # pytest"
-	@echo "  make test-uv   # uv run pytest"
+	@echo "  make test      # pytest (unit/offline tests under tests/ only)"
+	@echo "  make livetest  # optional integration tests vs real OSIDB (-vv -s count lines; see live_tests/README.md)"
+	@echo "  make test-uv   # uv run pytest (tests/ only)"
 	@echo "  make audit     # pip-audit (current environment)"
 	@echo "  make check     # test + audit"
 	@echo "  make build     # sdist + wheel under dist/"
@@ -31,10 +32,13 @@ sync:
 	uv sync --extra dev
 
 test:
-	$(PYTHON) -m pytest $(PYTEST_ARGS)
+	$(PYTHON) -m pytest tests $(PYTEST_ARGS)
+
+livetest:
+	$(PYTHON) -m pytest live_tests -vv -s $(PYTEST_ARGS)
 
 test-uv:
-	uv run pytest $(PYTEST_ARGS)
+	uv run pytest tests $(PYTEST_ARGS)
 
 audit:
 	$(PYTHON) -m pip_audit

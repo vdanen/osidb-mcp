@@ -45,3 +45,7 @@ include = ["src/osidb_mcp", "README.md", "LICENSE", "CHANGELOG.md", "SECURITY.md
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["."]
+markers = [
+  "live_osidb: optional integration tests against a real OSIDB (under live_tests/)",
+]
