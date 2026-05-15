@@ -10,7 +10,7 @@ readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
 requires-python = ">=3.10"
-authors = [{ name = "osidb-mcp contributors" }]
+authors = [{ name = "Vincent Danen", email = "vdanen@redhat.com" }]
 keywords = ["mcp", "osidb", "security", "cve", "kerberos"]
 classifiers = [
   "Development Status :: 3 - Alpha",
