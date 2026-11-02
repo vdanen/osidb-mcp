@@ -1,3 +1,25 @@
+# Changelog
+
+## 0.4.0
+
+- **OSIDB 5.21:** Acknowledgment creates and updates send `affiliation` (blank allowed) and `from_upstream` (default false). `flaw_label_add` rejects a missing `type`. Affect PUT bodies omit `flaw` and keep `embargoed`, `ps_update_stream`, and `updated_dt`. Flaw list tools accept `aegis_processed`, `workflow_state_isempty`, and `workflow_name_isempty`. Bindings pin is `osidb-bindings>=5.20.0,<6`. The 5.21 bindings package is not on PyPI yet, so those three filters use a raw GET until the generated client knows them.
+- **Tool profiles:** `OSIDB_MCP_PROFILE` is `core`, `lifecycle`, or `full` (default `full`, same catalog as before). `core` advertises 12 triage read tools. `lifecycle` adds the write tools used for vuln lifecycle work. Set this in Cursor `mcp.json` env to cut idle MCP tool-name tokens.
+- **Exploits tools:** Registered for `full` by default. Use `OSIDB_MCP_ENABLE_EXPLOITS=true` to enable them on a smaller profile.
+- **AEGIS tools:** Still registered only when `AEGIS_URL` is set.
+- **Compact payloads:** Default list `limit` is 20 (still capped at 100). Flaw list tools default to a short `include_fields` set. `get_flaw_details` returns compact affect/tracker rows (`compact=true`). Oversized JSON is truncated at 64 KiB.
+- **OSIDB 5.16:** `search_flaws` / `flaws_list` accept `flaw_labels`. `workflow_get` supports `history=true`. Label add/update accept optional `reason`. `product_family` labels are rejected as read-only. `owner` docs use email (OSIM), not Jira username.
+- **Dropped `identifier_hint`** from list/search payloads (uuid is already on each row).
+- **Fix `workflow_get(next=True)`:** pass `next_` to osidb-bindings (`next` is a Python keyword in the generated client).
+
+## 0.3.0
+
+- **Labels v2 API migration:** Label CRUD operations (`flaw_label_add`, `flaw_label_update`, `flaw_label_remove`, `flaw_labels_list`, `flaw_label_get`) now use the OSIDB v2 labels API (`/osidb/api/v2/flaws/{id}/labels`) instead of the deprecated v1 endpoints. The `label` parameter on `flaw_label_add` is renamed to `name` to match the v2 schema.
+- **Workflow `next` parameter:** `workflow_get` now supports `next=True` to return the next state and its requirement acceptance status, matching what OSIM uses for the next-state requirements panel.
+- **Audit tools always available:** `audit_list` and `audit_get` are now registered in both `readonly` and `readwrite` modes (they are read-only operations).
+- **`flaw_create` new fields:** `owner` (Jira username for immediate assignment) and `nist_cvss_validation` are now accepted on flaw creation, matching the full OSIDB `FlawPostRequest` schema.
+- **Removed deprecated workflow tools:** `flaw_promote`, `flaw_reject`, `flaw_reset`, and `flaw_revert` have been removed entirely. They were no-ops on OSIDB >= 5.12. Use `flaw_label_add(name='approved', label_type='workflow')` to reach DONE, or `flaw_label_add(name='rejected', label_type='workflow')` to reject. Workflow state is now auto-classified based on flaw data completeness.
+- **Documentation:** README write tools table updated to reflect all 38 write tools (was 8). TOOLS.md updated with workflow model documentation, write tool reference, and audit tool sections. CHANGELOG covers all changes since 0.2.0.
+
 ## 0.2.2
 
 - **Fix osidb-bindings >= 5.15 compatibility:** `workflow_state` / `flaw__workflow_state` filters pass `list[str]` directly, matching current bindings codegen (no per-parameter workflow-state enum modules).
