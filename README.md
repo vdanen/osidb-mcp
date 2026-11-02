@@ -216,7 +216,9 @@ pytest tests
 pip-audit
 ```
 
-With [Makefile](Makefile): `make install`, `make test`, `make audit`, or `make check` (CI-equivalent).
+With [Makefile](Makefile): `make dev` (or `make sync`) installs dev dependencies with uv; `make test`, `make audit`, and `make check` run local checks. `make install` remains available for pip-based installs.
+
+For PyPI Trusted Publishing setup and the shared `make version VERSION=x.y.z` / `make brew` release workflow, see [RELEASING.md](RELEASING.md).
 
 **Live integration tests:** `make livetest` runs [`live_tests/`](live_tests/) with **`pytest -vv -s`** (verbose + uncaptured stderr) when `OSIDB_LIVE_TEST=1` and normal `OSIDB_*` credentials are set. Default assertions use **`CVE-2014-0160`**; optional **`OSIDB_LIVE_MIN_*`** env vars enforce minimum totals for your instance. Setup, count output, and `.gitignore` patterns for secrets are documented in **[live_tests/README.md](live_tests/README.md)**. Default **`make test`** / **`pytest`** only run **`tests/`** (offline).
 
