@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.1
+
+- enable PyPI Trusted Publishing
+
 ## 0.4.0
 
 - **OSIDB 5.21:** Acknowledgment creates and updates send `affiliation` (blank allowed) and `from_upstream` (default false). `flaw_label_add` rejects a missing `type`. Affect PUT bodies omit `flaw` and keep `embargoed`, `ps_update_stream`, and `updated_dt`. Flaw list tools accept `aegis_processed`, `workflow_state_isempty`, and `workflow_name_isempty`. Bindings pin is `osidb-bindings>=5.20.0,<6`. The 5.21 bindings package is not on PyPI yet, so those three filters use a raw GET until the generated client knows them.
